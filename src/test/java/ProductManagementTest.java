@@ -15,9 +15,12 @@ class ProductManagementTest {
         Product product = new Product();
         product.setName("abcd");
         product.setCategory("test");
-        product.setPrice(BigDecimal.valueOf(1234));
+        product.setSubCategory("testsssr");
+        product.setSellPrice(BigDecimal.valueOf(1234));
         product.setStatus("in stock");
         product.setStock(2);
+        product.setBarcode("mvsnjee23");
+        product.setPurchasePrice(BigDecimal.valueOf(6572090));
 
         ProductManagement productManagement = new ProductManagement();
         Optional<Product> optProduct = productManagement.insert(product);
@@ -26,9 +29,12 @@ class ProductManagementTest {
         Product createdProduct = optProduct.get();
         Assertions.assertEquals(product.getName(), createdProduct.getName());
         Assertions.assertEquals(product.getCategory(), createdProduct.getCategory());
-        Assertions.assertEquals(product.getPrice(), createdProduct.getPrice());
+        Assertions.assertEquals(product.getSubCategory(), createdProduct.getSubCategory());
+        Assertions.assertEquals(product.getSellPrice(), createdProduct.getSellPrice());
         Assertions.assertEquals(product.getStatus(), createdProduct.getStatus());
         Assertions.assertEquals(product.getStock(), createdProduct.getStock());
+        Assertions.assertEquals(product.getBarcode(), createdProduct.getBarcode());
+        Assertions.assertEquals(product.getPurchasePrice(), createdProduct.getPurchasePrice());
     }
 
     @Test
@@ -46,9 +52,12 @@ class ProductManagementTest {
         //Insert new data
         product.setName("abcd");
         product.setCategory("test");
-        product.setPrice(BigDecimal.valueOf(1234));
+        product.setSubCategory("testidk");
+        product.setSellPrice(BigDecimal.valueOf(1234));
         product.setStatus("in stock");
         product.setStock(2);
+        product.setBarcode("123rabcdse");
+        product.setPurchasePrice(BigDecimal.valueOf(124345423));
 
         //Insert
         product = productManagement.insert(product).orElseThrow();
@@ -56,9 +65,13 @@ class ProductManagementTest {
         //Update the existing data
         product.setName("abcd");
         product.setCategory("test");
-        product.setPrice(BigDecimal.valueOf(23456));
+        product.setSubCategory("idk");
+        product.setSellPrice(BigDecimal.valueOf(23456));
         product.setStatus("in stock");
         product.setStock(10);
+        product.setBarcode("3543adfs");
+        product.setPurchasePrice(BigDecimal.valueOf(5673));
+
 
         //Update
         Product updatedProduct = productManagement.update(product);
@@ -66,9 +79,12 @@ class ProductManagementTest {
         //Check if it works by comparing the first data and the updated data
         Assertions.assertEquals(product.getName(), updatedProduct.getName());
         Assertions.assertEquals(product.getCategory(), updatedProduct.getCategory());
-        Assertions.assertEquals(product.getPrice(), updatedProduct.getPrice());
+        Assertions.assertEquals(product.getSubCategory(), updatedProduct.getSubCategory());
+        Assertions.assertEquals(product.getSellPrice(), updatedProduct.getSellPrice());
         Assertions.assertEquals(product.getStatus(), updatedProduct.getStatus());
         Assertions.assertEquals(product.getStock(), updatedProduct.getStock());
+        Assertions.assertEquals(product.getBarcode(), updatedProduct.getBarcode());
+        Assertions.assertEquals(product.getPurchasePrice(), updatedProduct.getPurchasePrice());
     }
 
     @Test
@@ -79,9 +95,12 @@ class ProductManagementTest {
         //Insert new data
         product.setName("abcdefg");
         product.setCategory("test");
-        product.setPrice(BigDecimal.valueOf(1234));
+        product.setSubCategory("teststststststts");
+        product.setSellPrice(BigDecimal.valueOf(1234));
         product.setStatus("in stock");
         product.setStock(4);
+        product.setBarcode("ksldherj79000");
+        product.setPurchasePrice(BigDecimal.valueOf(89.0));
 
         //Insert
         product = productManagement.insert(product).orElseThrow();
@@ -101,9 +120,12 @@ class ProductManagementTest {
         Product product = new Product();
         product.setName("abcd");
         product.setCategory("test");
-        product.setPrice(BigDecimal.valueOf(1234));
+        product.setSubCategory("subtest");
+        product.setSellPrice(BigDecimal.valueOf(1234));
         product.setStatus("in stock");
         product.setStock(2);
+        product.setBarcode("fgherttyu");
+        product.setPurchasePrice(BigDecimal.valueOf(98.1));
 
         ProductManagement productManagement = new ProductManagement();
         product = productManagement.insert(product).orElseThrow();
@@ -112,8 +134,11 @@ class ProductManagementTest {
 
         Assertions.assertEquals(product.getName(), foundProduct.getName());
         Assertions.assertEquals(product.getCategory(), foundProduct.getCategory());
-        Assertions.assertEquals(product.getPrice(), foundProduct.getPrice());
+        Assertions.assertEquals(product.getSubCategory(), foundProduct.getSubCategory());
+        Assertions.assertEquals(product.getSellPrice(), foundProduct.getSellPrice());
         Assertions.assertEquals(product.getStatus(), foundProduct.getStatus());
         Assertions.assertEquals(product.getStock(), foundProduct.getStock());
+        Assertions.assertEquals(product.getBarcode(), foundProduct.getBarcode());
+        Assertions.assertEquals(product.getPurchasePrice(), foundProduct.getPurchasePrice());
     }
 }

@@ -9,7 +9,7 @@ public class ProductManagement {
     private static final String PASSWORD = "123456";
 
     public Optional<Product> insert(Product product) throws SQLException {
-        String sql = "insert into product (name, price, category, status, stock) values (?, ?, ?, ?, ?)";
+        String sql = "insert into product (name, sell_price, category, sub_category, status, stock, barcode, purchase_price) values (?, ?, ?, ?, ?, ? ,? ,?)";
         try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             mappingStatementToObj(product, statement);
@@ -43,11 +43,11 @@ public class ProductManagement {
     }
 
     public Product update(Product product) throws SQLException {
-        String sql = "update product set name = ?, price = ?, category = ?, status = ?, stock = ? where id = ?";
+        String sql = "update product set name = ?, sell_price = ?, category = ?, sub_category = ?, status = ?, stock = ?, barcode = ?, purchase_price = ? where id = ?";
         try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             mappingStatementToObj(product, statement);
-            statement.setLong(6, product.getId());
+            statement.setLong(9, product.getId());
 
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
@@ -84,20 +84,26 @@ public class ProductManagement {
 
     private static void mappingStatementToObj(Product product, PreparedStatement statement) throws SQLException {
         statement.setString(1, product.getName());
-        statement.setBigDecimal(2, product.getPrice());
+        statement.setBigDecimal(2, product.getSellPrice());
         statement.setString(3, product.getCategory());
-        statement.setString(4, product.getStatus());
-        statement.setInt(5, product.getStock());
+        statement.setString(4, product.getSubCategory());
+        statement.setString(5, product.getStatus());
+        statement.setInt(6, product.getStock());
+        statement.setString(7, product.getBarcode());
+        statement.setBigDecimal(8, product.getPurchasePrice());
     }
 
     private static Product mappingProductToObj(ResultSet resultSet) throws SQLException {
         Product product = new Product();
         product.setId(resultSet.getLong("id"));
         product.setName(resultSet.getString("name"));
-        product.setPrice(resultSet.getBigDecimal("price"));
+        product.setSellPrice(resultSet.getBigDecimal("sell_price"));
         product.setCategory(resultSet.getString("category"));
+        product.setSubCategory(resultSet.getString("sub_category"));
         product.setStatus(resultSet.getString("status"));
         product.setStock(resultSet.getInt("stock"));
+        product.setBarcode(resultSet.getString("barcode"));
+        product.setPurchasePrice(resultSet.getBigDecimal("purchase_price"));
         return product;
     }
 }
