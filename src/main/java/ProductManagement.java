@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ public class ProductManagement {
     private static final String PASSWORD = "123456";
 
     public Optional<Product> insert(Product product) throws SQLException {
+        ProductValidator.validator(product);
         String sql = "insert into product (name, sell_price, category, sub_category, status, stock, barcode, purchase_price) values (?, ?, ?, ?, ?, ? ,? ,?)";
         try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -43,6 +45,7 @@ public class ProductManagement {
     }
 
     public Product update(Product product) throws SQLException {
+        ProductValidator.validator(product);
         String sql = "update product set name = ?, sell_price = ?, category = ?, sub_category = ?, status = ?, stock = ?, barcode = ?, purchase_price = ? where id = ?";
         try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -87,7 +90,7 @@ public class ProductManagement {
         statement.setBigDecimal(2, product.getSellPrice());
         statement.setString(3, product.getCategory());
         statement.setString(4, product.getSubCategory());
-        statement.setString(5, product.getStatus());
+        statement.setString(5, product.getStatus().name());
         statement.setInt(6, product.getStock());
         statement.setString(7, product.getBarcode());
         statement.setBigDecimal(8, product.getPurchasePrice());
@@ -100,7 +103,8 @@ public class ProductManagement {
         product.setSellPrice(resultSet.getBigDecimal("sell_price"));
         product.setCategory(resultSet.getString("category"));
         product.setSubCategory(resultSet.getString("sub_category"));
-        product.setStatus(resultSet.getString("status"));
+        ProductStatus status = ProductStatus.valueOf(resultSet.getString("status"));
+        product.setStatus(status);
         product.setStock(resultSet.getInt("stock"));
         product.setBarcode(resultSet.getString("barcode"));
         product.setPurchasePrice(resultSet.getBigDecimal("purchase_price"));

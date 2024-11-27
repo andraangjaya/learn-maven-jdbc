@@ -5,11 +5,19 @@ public class Product {
     private String name;
     private BigDecimal sellPrice;
     private String category;
-    private String status;
+    private ProductStatus status;
     private Integer stock;
     private String barcode;
     private String subCategory;
     private BigDecimal purchasePrice;
+
+    public ProductStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ProductStatus status) {
+        this.status = status;
+    }
 
     public String getBarcode() {
         return barcode;
@@ -33,14 +41,6 @@ public class Product {
 
     public void setPurchasePrice(BigDecimal purchasePrice) {
         this.purchasePrice = purchasePrice;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Long getId() {

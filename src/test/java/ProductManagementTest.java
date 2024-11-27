@@ -17,7 +17,7 @@ class ProductManagementTest {
         product.setCategory("test");
         product.setSubCategory("testsssr");
         product.setSellPrice(BigDecimal.valueOf(1234));
-        product.setStatus("in stock");
+        product.setStatus(ProductStatus.AVAILABLE);
         product.setStock(2);
         product.setBarcode("mvsnjee23");
         product.setPurchasePrice(BigDecimal.valueOf(6572090));
@@ -54,7 +54,7 @@ class ProductManagementTest {
         product.setCategory("test");
         product.setSubCategory("testidk");
         product.setSellPrice(BigDecimal.valueOf(1234));
-        product.setStatus("in stock");
+        product.setStatus(ProductStatus.AVAILABLE);
         product.setStock(2);
         product.setBarcode("123rabcdse");
         product.setPurchasePrice(BigDecimal.valueOf(124345423));
@@ -67,7 +67,7 @@ class ProductManagementTest {
         product.setCategory("test");
         product.setSubCategory("idk");
         product.setSellPrice(BigDecimal.valueOf(23456));
-        product.setStatus("in stock");
+        product.setStatus(ProductStatus.DISCONTINUE);
         product.setStock(10);
         product.setBarcode("3543adfs");
         product.setPurchasePrice(BigDecimal.valueOf(5673));
@@ -97,7 +97,7 @@ class ProductManagementTest {
         product.setCategory("test");
         product.setSubCategory("teststststststts");
         product.setSellPrice(BigDecimal.valueOf(1234));
-        product.setStatus("in stock");
+        product.setStatus(ProductStatus.ARCHIVED);
         product.setStock(4);
         product.setBarcode("ksldherj79000");
         product.setPurchasePrice(BigDecimal.valueOf(89.0));
@@ -122,7 +122,7 @@ class ProductManagementTest {
         product.setCategory("test");
         product.setSubCategory("subtest");
         product.setSellPrice(BigDecimal.valueOf(1234));
-        product.setStatus("in stock");
+        product.setStatus(ProductStatus.OUT_OF_STOCK);
         product.setStock(2);
         product.setBarcode("fgherttyu");
         product.setPurchasePrice(BigDecimal.valueOf(98.1));
@@ -140,5 +140,113 @@ class ProductManagementTest {
         Assertions.assertEquals(product.getStock(), foundProduct.getStock());
         Assertions.assertEquals(product.getBarcode(), foundProduct.getBarcode());
         Assertions.assertEquals(product.getPurchasePrice(), foundProduct.getPurchasePrice());
+    }
+
+    @Test
+    void validateInsertName() {
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            Product product = new Product();
+            new ProductManagement().insert(product);
+        });
+
+        assertEquals("Invalid data field: Product Name", exception.getMessage());
+    }
+
+    @Test
+    void validateInsertPrice() {
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            Product product = new Product();
+            product.setName("abcd");
+            new ProductManagement().insert(product);
+        });
+
+        assertEquals("Invalid data field: Product Sell Price", exception.getMessage());
+    }
+
+    @Test
+    void validateInsertCategory() {
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            Product product = new Product();
+            product.setName("abcd");
+            product.setSellPrice(BigDecimal.valueOf(1234));
+            new ProductManagement().insert(product);
+        });
+
+        assertEquals("Invalid data field: Product Category", exception.getMessage());
+    }
+
+    @Test
+    void validateInsertStatus() {
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            Product product = new Product();
+            product.setName("abcd");
+            product.setSellPrice(BigDecimal.valueOf(1234));
+            product.setCategory("test");
+            new ProductManagement().insert(product);
+        });
+
+        assertEquals("Invalid data field: Product Status", exception.getMessage());
+    }
+
+    @Test
+    void validateInsertStock() {
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            Product product = new Product();
+            product.setName("abcd");
+            product.setSellPrice(BigDecimal.valueOf(1234));
+            product.setCategory("test");
+            product.setStatus(ProductStatus.OUT_OF_STOCK);
+            new ProductManagement().insert(product);
+        });
+
+        assertEquals("Invalid data field: Product Stock", exception.getMessage());
+    }
+
+    @Test
+    void validateInsertBarcode() {
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            Product product = new Product();
+            product.setName("abcd");
+            product.setSellPrice(BigDecimal.valueOf(1234));
+            product.setCategory("test");
+            product.setStatus(ProductStatus.OUT_OF_STOCK);
+            product.setStock(10);
+            new ProductManagement().insert(product);
+        });
+
+        assertEquals("Invalid data field: Product Barcode", exception.getMessage());
+    }
+
+    @Test
+    void validateInsertSubCategory() {
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            Product product = new Product();
+            product.setName("abcd");
+            product.setSellPrice(BigDecimal.valueOf(1234));
+            product.setCategory("test");
+            product.setStatus(ProductStatus.OUT_OF_STOCK);
+            product.setStock(10);
+            product.setBarcode("1243ajdja");
+            new ProductManagement().insert(product);
+        });
+
+        assertEquals("Invalid data field: Product Sub Category", exception.getMessage());
+    }
+
+    @Test
+    void validateInsertPurchasePrice() {
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            Product product = new Product();
+            product.setName("abcd");
+            product.setSellPrice(BigDecimal.valueOf(1234));
+            product.setCategory("test");
+            product.setStatus(ProductStatus.OUT_OF_STOCK);
+            product.setStock(10);
+            product.setBarcode("1243ajdja");
+            product.setSubCategory("subtest");
+            new ProductManagement().insert(product);
+        });
+
+        assertEquals("Invalid data field: Product Purchase Price", exception.getMessage());
     }
 }
