@@ -1,3 +1,6 @@
+package com.flowza.retail.product;
+
+import com.flowza.retail.exception.InvalidDataException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -149,7 +152,7 @@ class ProductManagementTest {
             new ProductManagement().insert(product);
         });
 
-        assertEquals("Invalid data field: Product Name", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.product.Product Name", exception.getMessage());
     }
 
     @Test
@@ -160,7 +163,7 @@ class ProductManagementTest {
             new ProductManagement().insert(product);
         });
 
-        assertEquals("Invalid data field: Product Sell Price", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.product.Product Sell Price", exception.getMessage());
     }
 
     @Test
@@ -172,7 +175,7 @@ class ProductManagementTest {
             new ProductManagement().insert(product);
         });
 
-        assertEquals("Invalid data field: Product Category", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.product.Product Category", exception.getMessage());
     }
 
     @Test
@@ -185,7 +188,7 @@ class ProductManagementTest {
             new ProductManagement().insert(product);
         });
 
-        assertEquals("Invalid data field: Product Status", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.product.Product Status", exception.getMessage());
     }
 
     @Test
@@ -199,7 +202,7 @@ class ProductManagementTest {
             new ProductManagement().insert(product);
         });
 
-        assertEquals("Invalid data field: Product Stock", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.product.Product Stock", exception.getMessage());
     }
 
     @Test
@@ -214,7 +217,7 @@ class ProductManagementTest {
             new ProductManagement().insert(product);
         });
 
-        assertEquals("Invalid data field: Product Barcode", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.product.Product Barcode", exception.getMessage());
     }
 
     @Test
@@ -230,7 +233,7 @@ class ProductManagementTest {
             new ProductManagement().insert(product);
         });
 
-        assertEquals("Invalid data field: Product Sub Category", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.product.Product Sub Category", exception.getMessage());
     }
 
     @Test
@@ -247,6 +250,6 @@ class ProductManagementTest {
             new ProductManagement().insert(product);
         });
 
-        assertEquals("Invalid data field: Product Purchase Price", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.product.Product Purchase Price", exception.getMessage());
     }
 }

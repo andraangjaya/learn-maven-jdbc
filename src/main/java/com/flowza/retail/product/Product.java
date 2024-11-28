@@ -1,3 +1,5 @@
+package com.flowza.retail.product;
+
 import java.math.BigDecimal;
 
 public class Product {

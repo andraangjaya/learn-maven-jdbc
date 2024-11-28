@@ -1,17 +1,17 @@
+package com.flowza.retail.customer;
+
+import com.flowza.retail.config.AppConstant;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class CustomerManagement {
-    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "123456";
-
     public Optional<Customer> insert(Customer customer) throws SQLException {
         CustomerValidator.validator(customer);
         String sql = "insert into customer (code, company_name, first_name, last_name, email, phone_no, mobile, member_type) values (?, ?, ?, ?, ?, ? ,?, ?)";
-        try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (var connection = DriverManager.getConnection(AppConstant.URL, AppConstant.USER, AppConstant.PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             mappingStatementToObj(customer, statement);
 
@@ -32,7 +32,7 @@ public class CustomerManagement {
 
     public List<Customer> getAll() throws SQLException {
         List<Customer> customers = new ArrayList<>();
-        try (var connection = DriverManager.getConnection(URL, USER, PASSWORD);) {
+        try (var connection = DriverManager.getConnection(AppConstant.URL, AppConstant.USER, AppConstant.PASSWORD);) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from customer");
             while (resultSet.next()) {
@@ -46,7 +46,7 @@ public class CustomerManagement {
     public Customer update(Customer customer) throws SQLException {
         CustomerValidator.validator(customer);
         String sql = "update customer set code = ?, company_name = ?, first_name = ?, last_name = ?, email = ?, phone_no = ?, mobile = ?, member_type = ? where id = ?";
-        try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (var connection = DriverManager.getConnection(AppConstant.URL, AppConstant.USER, AppConstant.PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             mappingStatementToObj(customer, statement);
             statement.setLong(9, customer.getId());
@@ -62,7 +62,7 @@ public class CustomerManagement {
 
     public void delete(long id) throws SQLException {
         String sql = "delete from customer where id = ?";
-        try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (var connection = DriverManager.getConnection(AppConstant.URL, AppConstant.USER, AppConstant.PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             statement.executeUpdate();
@@ -71,7 +71,7 @@ public class CustomerManagement {
 
     public Optional<Customer> findById(long id) throws SQLException {
         String sql = "select * from customer where id = ?";
-        try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (var connection = DriverManager.getConnection(AppConstant.URL, AppConstant.USER, AppConstant.PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
 

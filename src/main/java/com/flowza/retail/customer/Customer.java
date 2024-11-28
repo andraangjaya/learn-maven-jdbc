@@ -1,3 +1,5 @@
+package com.flowza.retail.customer;
+
 public class Customer {
     private Long id;
     private String code;

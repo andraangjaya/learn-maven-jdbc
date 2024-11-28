@@ -1,3 +1,5 @@
+package com.flowza.retail.customer;
+
 public enum MemberType {
     NO_MEMBER("N"),
     BRONZE("B"),

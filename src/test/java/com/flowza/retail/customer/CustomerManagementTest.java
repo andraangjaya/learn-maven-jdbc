@@ -1,7 +1,9 @@
+package com.flowza.retail.customer;
+
+import com.flowza.retail.exception.InvalidDataException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -133,7 +135,7 @@ class CustomerManagementTest {
             new CustomerManagement().insert(customer);
         });
 
-        assertEquals("Invalid data field: Customer Code", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.customer.Customer Code", exception.getMessage());
     }
 
     @Test
@@ -144,7 +146,7 @@ class CustomerManagementTest {
             new CustomerManagement().insert(customer);
         });
 
-        assertEquals("Invalid data field: Customer Company Name", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.customer.Customer Company Name", exception.getMessage());
     }
 
     @Test
@@ -156,7 +158,7 @@ class CustomerManagementTest {
             new CustomerManagement().insert(customer);
         });
 
-        assertEquals("Invalid data field: Customer First Name", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.customer.Customer First Name", exception.getMessage());
     }
 
     @Test
@@ -169,7 +171,7 @@ class CustomerManagementTest {
             new CustomerManagement().insert(customer);
         });
 
-        assertEquals("Invalid data field: Customer Last Name", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.customer.Customer Last Name", exception.getMessage());
     }
 
     @Test
@@ -183,7 +185,7 @@ class CustomerManagementTest {
             new CustomerManagement().insert(customer);
         });
 
-        assertEquals("Invalid data field: Customer Email", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.customer.Customer Email", exception.getMessage());
     }
 
     @Test
@@ -198,7 +200,7 @@ class CustomerManagementTest {
             new CustomerManagement().insert(customer);
         });
 
-        assertEquals("Invalid data field: Customer Phone No", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.customer.Customer Phone No", exception.getMessage());
     }
 
     @Test
@@ -214,6 +216,6 @@ class CustomerManagementTest {
             new CustomerManagement().insert(customer);
         });
 
-        assertEquals("Invalid data field: Customer Mobile", exception.getMessage());
+        assertEquals("Invalid data field: com.flowza.retail.customer.Customer Mobile", exception.getMessage());
     }
 }

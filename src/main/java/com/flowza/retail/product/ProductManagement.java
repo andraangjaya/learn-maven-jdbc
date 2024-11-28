@@ -1,18 +1,17 @@
-import java.math.BigDecimal;
+package com.flowza.retail.product;
+
+import com.flowza.retail.config.AppConstant;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class ProductManagement {
-    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "123456";
-
     public Optional<Product> insert(Product product) throws SQLException {
         ProductValidator.validator(product);
         String sql = "insert into product (name, sell_price, category, sub_category, status, stock, barcode, purchase_price) values (?, ?, ?, ?, ?, ? ,? ,?)";
-        try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (var connection = DriverManager.getConnection(AppConstant.URL, AppConstant.USER, AppConstant.PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             mappingStatementToObj(product, statement);
 
@@ -33,7 +32,7 @@ public class ProductManagement {
 
     public List<Product> getAll() throws SQLException {
         List<Product> products = new ArrayList<>();
-        try (var connection = DriverManager.getConnection(URL, USER, PASSWORD);) {
+        try (var connection = DriverManager.getConnection(AppConstant.URL, AppConstant.USER, AppConstant.PASSWORD);) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from product");
             while (resultSet.next()) {
@@ -47,7 +46,7 @@ public class ProductManagement {
     public Product update(Product product) throws SQLException {
         ProductValidator.validator(product);
         String sql = "update product set name = ?, sell_price = ?, category = ?, sub_category = ?, status = ?, stock = ?, barcode = ?, purchase_price = ? where id = ?";
-        try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (var connection = DriverManager.getConnection(AppConstant.URL, AppConstant.USER, AppConstant.PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             mappingStatementToObj(product, statement);
             statement.setLong(9, product.getId());
@@ -63,7 +62,7 @@ public class ProductManagement {
 
     public void delete(long id) throws SQLException {
         String sql = "delete from product where id = ?";
-        try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (var connection = DriverManager.getConnection(AppConstant.URL, AppConstant.USER, AppConstant.PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             statement.executeUpdate();
@@ -72,7 +71,7 @@ public class ProductManagement {
 
     public Optional<Product> findById(long id) throws SQLException {
         String sql = "select * from product where id = ?";
-        try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (var connection = DriverManager.getConnection(AppConstant.URL, AppConstant.USER, AppConstant.PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
 

@@ -1,3 +1,5 @@
+package com.flowza.retail.product;
+
 public enum ProductStatus {
     AVAILABLE,
     DISCONTINUE,
