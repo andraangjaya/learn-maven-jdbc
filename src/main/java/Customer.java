@@ -1,4 +1,13 @@
 public class Customer {
+    private Long id;
+    private String code;
+    private String companyName;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phoneNo;
+    private String mobile;
+
     public Long getId() {
         return id;
     }
@@ -62,13 +71,4 @@ public class Customer {
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
-
-    private Long id;
-    private String code;
-    private String companyName;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phoneNo;
-    private String mobile;
 }
