@@ -15,17 +15,29 @@ class CustomerManagementTest {
     @Test
     void insert() throws SQLException {
         Customer customer = new Customer();
-        customer.setCode("as24");
         customer.setCompanyName("testcompany");
         customer.setFirstName("testfirstname");
         customer.setLastName("testlastname");
         customer.setEmail("testemail");
         customer.setPhoneNo("testphone");
         customer.setMobile("testmobile");
+        customer.setStore(StoreLocation.STORE_C);
         customer.setMemberType(MemberType.BRONZE);
 
         CustomerManagement cm = new CustomerManagement();
-        cm.insert(customer);
+        Optional<Customer> optCustomer = cm.insert(customer);
+
+        Customer insertedCustomer = optCustomer.get();
+
+        Assertions.assertNotNull(customer.getCode(), insertedCustomer.getCode());
+        Assertions.assertEquals(customer.getCompanyName(), insertedCustomer.getCompanyName());
+        Assertions.assertEquals(customer.getFirstName(), insertedCustomer.getFirstName());
+        Assertions.assertEquals(customer.getLastName(), insertedCustomer.getLastName());
+        Assertions.assertEquals(customer.getEmail(), insertedCustomer.getEmail());
+        Assertions.assertEquals(customer.getPhoneNo(), insertedCustomer.getPhoneNo());
+        Assertions.assertEquals(customer.getMobile(), insertedCustomer.getMobile());
+        Assertions.assertEquals(customer.getMemberType(), insertedCustomer.getMemberType());
+        Assertions.assertEquals(customer.getStore(), insertedCustomer.getStore());
     }
 
     @Test
@@ -49,6 +61,7 @@ class CustomerManagementTest {
         customer.setPhoneNo("testphone");
         customer.setMobile("testmobile");
         customer.setMemberType(MemberType.SILVER);
+        customer.setStore(StoreLocation.STORE_B);
 
         //Insert
         customer = cm.insert(customer).orElseThrow();
@@ -62,6 +75,7 @@ class CustomerManagementTest {
         customer.setPhoneNo("testphone1");
         customer.setMobile("testmobile1");
         customer.setMemberType(MemberType.GOLD);
+        customer.setStore(StoreLocation.STORE_C);
 
 
         //Update
@@ -75,6 +89,8 @@ class CustomerManagementTest {
         Assertions.assertEquals(customer.getEmail(), updatedCustomer.getEmail());
         Assertions.assertEquals(customer.getPhoneNo(), updatedCustomer.getPhoneNo());
         Assertions.assertEquals(customer.getMobile(), updatedCustomer.getMobile());
+        Assertions.assertEquals(customer.getMemberType(), updatedCustomer.getMemberType());
+        Assertions.assertEquals(customer.getStore(), updatedCustomer.getStore());
     }
 
     @Test
@@ -91,6 +107,7 @@ class CustomerManagementTest {
         customer.setPhoneNo("testphone");
         customer.setMobile("testmobile");
         customer.setMemberType(MemberType.SILVER);
+        customer.setStore(StoreLocation.STORE_B);
 
         //Insert
         customer = cm.insert(customer).orElseThrow();
@@ -113,6 +130,7 @@ class CustomerManagementTest {
         customer.setPhoneNo("testphone");
         customer.setMobile("testmobile");
         customer.setMemberType(MemberType.BRONZE);
+        customer.setStore(StoreLocation.STORE_B);
 
         CustomerManagement cm = new CustomerManagement();
         customer = cm.insert(customer).orElseThrow();
@@ -126,17 +144,10 @@ class CustomerManagementTest {
         Assertions.assertEquals(customer.getEmail(), foundCustomer.getEmail());
         Assertions.assertEquals(customer.getPhoneNo(), foundCustomer.getPhoneNo());
         Assertions.assertEquals(customer.getMobile(), foundCustomer.getMobile());
+        Assertions.assertEquals(customer.getMemberType(), foundCustomer.getMemberType());
+        Assertions.assertEquals(customer.getStore(), foundCustomer.getStore());
     }
 
-    @Test
-    void validateInsertCode() {
-        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
-            Customer customer = new Customer();
-            new CustomerManagement().insert(customer);
-        });
-
-        assertEquals("Invalid data field: com.flowza.retail.customer.Customer Code", exception.getMessage());
-    }
 
     @Test
     void validateInsertCompanyName() {
@@ -218,4 +229,42 @@ class CustomerManagementTest {
 
         assertEquals("Invalid data field: com.flowza.retail.customer.Customer Mobile", exception.getMessage());
     }
+
+    @Test
+    void validateInsertMemberType() {
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            Customer customer = new Customer();
+            customer.setCode("asdf312");
+            customer.setCompanyName("testcompany2");
+            customer.setFirstName("testfirst2");
+            customer.setLastName("testlast2");
+            customer.setEmail("testemail2");
+            customer.setPhoneNo("testphone2");
+            customer.setMobile("testmobile2");
+            new CustomerManagement().insert(customer);
+        });
+
+        assertEquals("Invalid data field: com.flowza.retail.customer.Customer Member Type", exception.getMessage());
+    }
+
+    @Test
+    void validateInsertStore() {
+        InvalidDataException exception = assertThrows(InvalidDataException.class, () -> {
+            Customer customer = new Customer();
+            customer.setCode("asdf312");
+            customer.setCompanyName("testcompany2");
+            customer.setFirstName("testfirst2");
+            customer.setLastName("testlast2");
+            customer.setEmail("testemail2");
+            customer.setPhoneNo("testphone2");
+            customer.setMobile("testmobile2");
+            customer.setMemberType(MemberType.GOLD);
+            new CustomerManagement().insert(customer);
+        });
+
+        assertEquals("Invalid data field: com.flowza.retail.customer.Customer Store", exception.getMessage());
+    }
+
+
+
 }

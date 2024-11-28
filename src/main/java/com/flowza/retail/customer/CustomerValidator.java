@@ -5,11 +5,6 @@ import com.flowza.retail.exception.InvalidDataException;
 public class CustomerValidator {
     public static void validator(Customer customer) {
 
-        if(customer.getCode() == null || customer.getCode().trim().isEmpty()) {
-            throw new InvalidDataException("com.flowza.retail.customer.Customer Code");
-        }
-
-
         if(customer.getCompanyName() == null || customer.getCompanyName().trim().isEmpty()) {
             throw new InvalidDataException("com.flowza.retail.customer.Customer Company Name");
         }
@@ -38,5 +33,14 @@ public class CustomerValidator {
         if(customer.getMobile() == null || customer.getMobile().trim().isEmpty()) {
             throw new InvalidDataException("com.flowza.retail.customer.Customer Mobile");
         }
+
+        if(customer.getMemberType() == null){
+            throw new InvalidDataException("com.flowza.retail.customer.Customer Member Type");
+        }
+
+        if(customer.getStore() == null){
+            throw new InvalidDataException("com.flowza.retail.customer.Customer Store");
+        }
+
     }
 }

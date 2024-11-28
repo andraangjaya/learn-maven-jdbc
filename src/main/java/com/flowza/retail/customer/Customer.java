@@ -10,14 +10,7 @@ public class Customer {
     private String phoneNo;
     private String mobile;
     private MemberType memberType;
-
-    public MemberType getMemberType() {
-        return memberType;
-    }
-
-    public void setMemberType(MemberType memberType) {
-        this.memberType = memberType;
-    }
+    private StoreLocation store;
 
     public Long getId() {
         return id;
@@ -81,5 +74,21 @@ public class Customer {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public MemberType getMemberType() {
+        return memberType;
+    }
+
+    public void setMemberType(MemberType memberType) {
+        this.memberType = memberType;
+    }
+
+    public StoreLocation getStore() {
+        return store;
+    }
+
+    public void setStore(StoreLocation store) {
+        this.store = store;
     }
 }
