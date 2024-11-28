@@ -7,6 +7,15 @@ public class Customer {
     private String email;
     private String phoneNo;
     private String mobile;
+    private MemberType memberType;
+
+    public MemberType getMemberType() {
+        return memberType;
+    }
+
+    public void setMemberType(MemberType memberType) {
+        this.memberType = memberType;
+    }
 
     public Long getId() {
         return id;

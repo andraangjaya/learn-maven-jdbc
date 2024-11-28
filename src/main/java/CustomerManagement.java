@@ -10,7 +10,7 @@ public class CustomerManagement {
 
     public Optional<Customer> insert(Customer customer) throws SQLException {
         CustomerValidator.validator(customer);
-        String sql = "insert into customer (code, company_name, first_name, last_name, email, phone_no, mobile) values (?, ?, ?, ?, ?, ? ,?)";
+        String sql = "insert into customer (code, company_name, first_name, last_name, email, phone_no, mobile, member_type) values (?, ?, ?, ?, ?, ? ,?, ?)";
         try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             mappingStatementToObj(customer, statement);
@@ -45,11 +45,11 @@ public class CustomerManagement {
 
     public Customer update(Customer customer) throws SQLException {
         CustomerValidator.validator(customer);
-        String sql = "update customer set code = ?, company_name = ?, first_name = ?, last_name = ?, email = ?, phone_no = ?, mobile = ? where id = ?";
+        String sql = "update customer set code = ?, company_name = ?, first_name = ?, last_name = ?, email = ?, phone_no = ?, mobile = ?, member_type = ? where id = ?";
         try (var connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             mappingStatementToObj(customer, statement);
-            statement.setLong(8, customer.getId());
+            statement.setLong(9, customer.getId());
 
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
@@ -94,6 +94,8 @@ public class CustomerManagement {
         customer.setEmail(resultSet.getString("email"));
         customer.setPhoneNo(resultSet.getString("phone_no"));
         customer.setMobile(resultSet.getString("mobile"));
+        MemberType memberType = MemberType.valueOf(resultSet.getString("member_type"));
+        customer.setMemberType(memberType);
         return customer;
     }
 
@@ -105,6 +107,7 @@ public class CustomerManagement {
         statement.setString(5, customer.getEmail());
         statement.setString(6, customer.getPhoneNo());
         statement.setString(7, customer.getMobile());
+        statement.setString(8, customer.getMemberType().name());
     }
 
 }

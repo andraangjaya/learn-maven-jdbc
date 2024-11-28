@@ -20,6 +20,7 @@ class CustomerManagementTest {
         customer.setEmail("testemail");
         customer.setPhoneNo("testphone");
         customer.setMobile("testmobile");
+        customer.setMemberType(MemberType.BRONZE);
 
         CustomerManagement cm = new CustomerManagement();
         cm.insert(customer);
@@ -45,6 +46,7 @@ class CustomerManagementTest {
         customer.setEmail("testemail");
         customer.setPhoneNo("testphone");
         customer.setMobile("testmobile");
+        customer.setMemberType(MemberType.SILVER);
 
         //Insert
         customer = cm.insert(customer).orElseThrow();
@@ -57,6 +59,7 @@ class CustomerManagementTest {
         customer.setEmail("testemail1");
         customer.setPhoneNo("testphone1");
         customer.setMobile("testmobile1");
+        customer.setMemberType(MemberType.GOLD);
 
 
         //Update
@@ -85,6 +88,7 @@ class CustomerManagementTest {
         customer.setEmail("testemail");
         customer.setPhoneNo("testphone");
         customer.setMobile("testmobile");
+        customer.setMemberType(MemberType.SILVER);
 
         //Insert
         customer = cm.insert(customer).orElseThrow();
@@ -106,6 +110,7 @@ class CustomerManagementTest {
         customer.setEmail("testemail");
         customer.setPhoneNo("testphone");
         customer.setMobile("testmobile");
+        customer.setMemberType(MemberType.BRONZE);
 
         CustomerManagement cm = new CustomerManagement();
         customer = cm.insert(customer).orElseThrow();
